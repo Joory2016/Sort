@@ -3,10 +3,81 @@
 
 #include "pch.h"
 #include <iostream>
+#include <vector>
+
+using namespace std;
+
+template <class T>
+void swap(T& a, T& b) {
+	T temp = a;
+	a = b;
+	b = temp;
+}
+
+template <typename T>
+vector<T> bubbleSort(vector<T>& nums) {
+	int len = nums.size();
+	for (int i = 1; i <= len - 1; i++) {
+		for (int j = 0; j <= len - 1 - i; j++) {
+			if (nums[j] > nums[j + 1])
+				::swap(nums[j], nums[j + 1]);
+		}
+	}
+	return nums;
+}
+
+template <typename T>
+vector<T> selectSort(vector<T>& nums) {
+	int len = nums.size();
+	int minIndex, temp;
+	for (int i = 0; i < len - 1; i++) {
+		minIndex = i;
+		for (int j = i + 1; j < len; j++) {
+			if (nums[j] < nums[minIndex])
+				minIndex = j;
+		}
+		temp = nums[i];
+		nums[i] = nums[minIndex];
+		nums[minIndex] = temp;
+	}
+	return nums;
+}
+
+template <typename T>
+vector<T> insertSort(vector<T>& nums) {
+	int len = nums.size();
+	for (int i = 1; i < len; i++) {
+		for (int j = i; j > 0; j--) {
+			if (nums[j - 1] > nums[j])
+				::swap<T>(nums[j - 1], nums[j]);
+			else
+				break;
+		}
+	}
+	return nums;
+}
+
+
+
+template <class T>
+ostream& operator<<(ostream& os, vector<T> nums) {
+	for (int i = 0; i < nums.size(); i++)
+		os << nums[i] << "  ";
+	os << endl;
+	return os;
+}
+
 
 int main()
 {
+	vector<int> nums{ 4, 7, 3, 2, 9, 1, 5, 10, 8 };
+	//insertSort(nums);
+	//bubbleSort(nums);
+	selectSort(nums);
+
+	cout << nums;
     std::cout << "Hello World!\n"; 
+	return 0;
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
